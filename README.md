@@ -63,4 +63,4 @@ yarn dev
 
 ## License
 
-Licensed under the [MIT license]().
+Licensed under the [MIT license](https://github.com/devchaudhary24k/UrbanRhetoric/blob/main/LISENCE.md).
