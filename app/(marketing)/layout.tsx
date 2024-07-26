@@ -7,6 +7,7 @@ import { marketingConfig } from '@/config/marketing';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
+import { SiteFooter } from '@/components/SiteFooter/SiteFooter';
 
 // Types
 type MarketingLayoutProps = {
@@ -24,7 +25,7 @@ const Layout = ({ children }: MarketingLayoutProps) => {
             <Link
               href="/login"
               className={cn(
-                buttonVariants({ variant: 'default', size: 'sm' }),
+                buttonVariants({ variant: 'secondary', size: 'sm' }),
                 'px-6'
               )}
             >
@@ -34,6 +35,7 @@ const Layout = ({ children }: MarketingLayoutProps) => {
         </div>
       </header>
       <main className="flex-1">{children}</main>
+      <SiteFooter />
     </div>
   );
 };

@@ -58,15 +58,7 @@ const MainNav = ({ children, items }: NavbarLinksProps) => {
         className="flex items-center space-x-2 md:hidden"
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       >
-        {showMobileMenu ? (
-          <div className="flex justify-center items-center w-10 h-10">
-            <Icons.close className="w-10 h-10" />
-          </div>
-        ) : (
-          <div className="flex justify-center items-center w-10 h-10">
-            <Icons.logo className="w-10 h-10" />
-          </div>
-        )}
+        {showMobileMenu ? <Icons.close /> : <Icons.logo />}
         <span className="font-bold">Menu</span>
       </button>
       {showMobileMenu && items && (
