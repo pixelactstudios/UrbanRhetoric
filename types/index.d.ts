@@ -1,3 +1,5 @@
+import { Icons } from '@/components/Icons/Icons';
+
 export type SiteConfig = {
   name: string;
   description: string;
@@ -7,4 +9,31 @@ export type SiteConfig = {
     twitter: string;
     github: string;
   };
+};
+
+export type NavItem = {
+  title: string;
+  href: string;
+  disabled?: boolean;
+};
+
+export type MainNavItem = NavItem;
+
+export type SidebarNavItem = {
+  title: string;
+  disabled?: boolean;
+  external?: boolean;
+  icon?: keyof typeof Icons;
+} & (
+  | {
+      href: string;
+      item?: never;
+    }
+  | {
+      href?: string;
+      items: NavLink[];
+    }
+);
+export type MarketingConfig = {
+  mainNav: MainNavItem[];
 };

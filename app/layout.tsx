@@ -1,9 +1,47 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter as FontSans } from 'next/font/google';
 import '../styles/globals.css';
 import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/components/ThemeProvider/ThemeProvider';
+import localFont from 'next/font/local';
 
-const inter = Inter({ subsets: ['latin'] });
+const fontSans = FontSans({ subsets: ['latin'], variable: '--font-sans' });
+const roobertMono = localFont({
+  src: [
+    {
+      path: '../assets/fonts/Roobert-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/Roobert-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/Roobert-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/Roobert-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/Roobert-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/Roobert-Heavy.woff2',
+      weight: '900',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-roobert',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -44,7 +82,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={cn(
+          'relative h-full font-sans antialiased',
+          fontSans.variable,
+          roobertMono.variable
+        )}
+      >
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <div className="relative flex flex-col min-h-screen">{children}</div>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
