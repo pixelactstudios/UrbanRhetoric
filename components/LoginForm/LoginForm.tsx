@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 import { Form } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/Icons/Icons';
 
 // Types
@@ -38,7 +38,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false);
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   async function onSubmit(data: FormData) {
     setIsLoading(true);
