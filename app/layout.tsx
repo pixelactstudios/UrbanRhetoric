@@ -5,6 +5,7 @@ import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/ThemeProvider/ThemeProvider';
 import localFont from 'next/font/local';
+import { ReactNode } from 'react';
 
 const fontSans = FontSans({ subsets: ['latin'], variable: '--font-sans' });
 const roobertMono = localFont({
@@ -78,7 +79,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">
