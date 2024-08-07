@@ -3,7 +3,6 @@
 // Global Imports
 import { HTMLAttributes, useState } from 'react';
 import z from 'zod';
-import { api, HydrateClient } from '@/trpc/server';
 
 // Internal Imports
 import { RegisterSchema } from '@/lib/validations/auth';
@@ -41,9 +40,6 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
   const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false);
   // const searchParams = useSearchParams();
 
-  const registerUser = api.user.RegisterUser;
-  console.log(registerUser);
-
   async function onSubmit(data: FormData) {
     setIsLoading(true);
 
@@ -53,100 +49,98 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
   }
 
   return (
-    <HydrateClient>
-      <div className={cn('grid gap-6', className)} {...props}>
-        <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-2">
-              <div className="grid gap-1">
-                <div className="mb-4 flex flex-col gap-2">
-                  {/* Username */}
-                  <Label className="" htmlFor="name">
-                    Name
-                  </Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    autoCapitalize="none"
-                    autoComplete="name"
-                    autoCorrect="off"
-                    placeholder="your name"
-                    disabled={isLoading || isGithubLoading}
-                    {...register('name')}
-                  />
-                </div>
-                <div className="mb-4 flex flex-col gap-2">
-                  {/* Email */}
-                  <Label className="" htmlFor="email">
-                    Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    autoCapitalize="none"
-                    autoComplete="email"
-                    autoCorrect="off"
-                    placeholder="name@example.com"
-                    disabled={isLoading || isGithubLoading}
-                    {...register('email')}
-                  />
-                </div>
-                <div className="mb-4 flex flex-col gap-2">
-                  {/* Password */}
-                  <Label className="mb-2" htmlFor="password">
-                    Password
-                  </Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    autoCapitalize="none"
-                    autoComplete="password"
-                    autoCorrect="off"
-                    placeholder="**********"
-                    disabled={isLoading || isGithubLoading}
-                    {...register('password')}
-                  />
-                </div>
+    <div className={cn('grid gap-6', className)} {...props}>
+      <Form {...form}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid gap-2">
+            <div className="grid gap-1">
+              <div className="mb-4 flex flex-col gap-2">
+                {/* Username */}
+                <Label className="" htmlFor="name">
+                  Name
+                </Label>
+                <Input
+                  id="name"
+                  type="text"
+                  autoCapitalize="none"
+                  autoComplete="name"
+                  autoCorrect="off"
+                  placeholder="your name"
+                  disabled={isLoading || isGithubLoading}
+                  {...register('name')}
+                />
               </div>
-              <button className={buttonVariants()} disabled={isLoading}>
-                {isLoading && (
-                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                )}{' '}
-                Create Account
-              </button>
+              <div className="mb-4 flex flex-col gap-2">
+                {/* Email */}
+                <Label className="" htmlFor="email">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  autoCapitalize="none"
+                  autoComplete="email"
+                  autoCorrect="off"
+                  placeholder="name@example.com"
+                  disabled={isLoading || isGithubLoading}
+                  {...register('email')}
+                />
+              </div>
+              <div className="mb-4 flex flex-col gap-2">
+                {/* Password */}
+                <Label className="mb-2" htmlFor="password">
+                  Password
+                </Label>
+                <Input
+                  id="password"
+                  type="password"
+                  autoCapitalize="none"
+                  autoComplete="password"
+                  autoCorrect="off"
+                  placeholder="**********"
+                  disabled={isLoading || isGithubLoading}
+                  {...register('password')}
+                />
+              </div>
             </div>
-          </form>
-        </Form>
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
+            <button className={buttonVariants()} disabled={isLoading}>
+              {isLoading && (
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              )}{' '}
+              Create Account
+            </button>
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
-            </span>
-          </div>
+        </form>
+      </Form>
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
         </div>
-        <div className="flex flex-col gap-4">
-          <button
-            type="button"
-            className={cn(buttonVariants({ variant: 'outline' }))}
-            onClick={() => {
-              setIsGithubLoading(true);
-              //   TODO: Github login
-            }}
-            disabled={isLoading || isGithubLoading}
-          >
-            {isGithubLoading ? (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Icons.gitHub className="mr-2 h-4 w-4" />
-            )}{' '}
-            Github
-          </button>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
         </div>
       </div>
-    </HydrateClient>
+      <div className="flex flex-col gap-4">
+        <button
+          type="button"
+          className={cn(buttonVariants({ variant: 'outline' }))}
+          onClick={() => {
+            setIsGithubLoading(true);
+            //   TODO: Github login
+          }}
+          disabled={isLoading || isGithubLoading}
+        >
+          {isGithubLoading ? (
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Icons.gitHub className="mr-2 h-4 w-4" />
+          )}{' '}
+          Github
+        </button>
+      </div>
+    </div>
   );
 };
 

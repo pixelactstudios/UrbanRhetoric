@@ -14,7 +14,6 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/Icons/Icons';
-import { api } from '@/trpc/react';
 
 // Types
 type LoginFormProps = HTMLAttributes<HTMLDivElement> & {};
@@ -29,9 +28,6 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
       password: '',
     },
   });
-
-  const { mutate } = api.user.registerUser.useMutation();
-  console.log(mutate);
 
   const {
     register,
