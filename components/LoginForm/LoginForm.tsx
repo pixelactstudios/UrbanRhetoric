@@ -8,13 +8,13 @@ import z from 'zod';
 import { userAuthSchema } from '@/lib/validations/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Form } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/Icons/Icons';
+import { api } from '@/trpc/react';
 
 // Types
 type LoginFormProps = HTMLAttributes<HTMLDivElement> & {};
@@ -30,6 +30,9 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
     },
   });
 
+  const { mutate } = api.user.registerUser.useMutation();
+  console.log(mutate);
+
   const {
     register,
     handleSubmit,
@@ -44,7 +47,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
   async function onSubmit(data: FormData) {
     setIsLoading(true);
 
-    //   TODO: Sign-in Function
+    // TODO: Sign in Function
 
     setIsLoading(false);
   }
@@ -73,7 +76,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
               </div>
               <div className="mb-4 flex flex-col gap-2">
                 {/* Password */}
-                <Label className="mb-2" htmlFor="email">
+                <Label className="mb-2" htmlFor="password">
                   Password
                 </Label>
                 <Input

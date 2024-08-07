@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/ThemeProvider/ThemeProvider';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
+import { TRPCReactProvider } from '@/trpc/react';
 
 const fontSans = FontSans({ subsets: ['latin'], variable: '--font-sans' });
 const roobertMono = localFont({
@@ -90,9 +91,13 @@ export default function RootLayout({
           roobertMono.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <div className="relative flex flex-col min-h-screen">{children}</div>
-        </ThemeProvider>
+        <TRPCReactProvider>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+            <div className="relative flex flex-col min-h-screen">
+              {children}
+            </div>
+          </ThemeProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );

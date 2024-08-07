@@ -2,19 +2,15 @@
 
 import { type QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createQueryClient } from '@/trpc/queryClient';
-import {
-  createTRPCReact,
-  loggerLink,
-  unstable_httpBatchStreamLink,
-} from '@trpc/react-query';
+import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client';
+import { createTRPCReact } from '@trpc/react-query';
 import { AppRouter } from '@/server/api/root';
 import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server';
 import { ReactNode, useState } from 'react';
 import SuperJSON from 'superjson';
-import { env } from '@/env.mjs';
-import * as child_process from 'node:child_process';
+import { env } from '@/env.js';
 
-let clientQuertClientSingleton: QueryClient | undefined = undefined;
+let clientQueryClientSingleton: QueryClient | undefined = undefined;
 const getQueryClient = () => {
   if (typeof window === 'undefined') {
     //   Server: always make a new query client
@@ -22,7 +18,7 @@ const getQueryClient = () => {
   }
 
   //   Browser: use singleton pattern to keep the same query client
-  return (clientQuertClientSingleton ??= createQueryClient());
+  return (clientQueryClientSingleton ??= createQueryClient());
 };
 
 export const api = createTRPCReact<AppRouter>();
@@ -48,7 +44,7 @@ export function TRPCReactProvider(props: { children: ReactNode }) {
       links: [
         loggerLink({
           enabled: (op) =>
-            process.env.NODE_ENV === 'development' ||
+            env.NODE_ENV === 'development' ||
             (op.direction === 'down' && op.result instanceof Error),
         }),
         unstable_httpBatchStreamLink({

@@ -2,9 +2,10 @@
   "name": "urbanrhetoric",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "engines": {
-    "node": ">=20.15.0",
-    "yarn": ">=1.22.22",
+    "node": ">=20.00.0",
+    "yarn": ">=1.22.00",
     "npm": "Please use yarn"
   },
   "scripts": {
@@ -25,18 +26,19 @@
     "@t3-oss/env-nextjs": "^0.11.0",
     "@tanstack/react-query": "^5.51.16",
     "@trpc/client": "^11.0.0-rc.467",
-    "@trpc/next": "^11.0.0-rc.467",
     "@trpc/react-query": "^11.0.0-rc.467",
     "@trpc/server": "^11.0.0-rc.467",
+    "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.414.0",
-    "next": "14.2.5",
+    "next": "^14.2.5",
     "next-auth": "^5.0.0-beta.19",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
+    "server-only": "^0.0.1",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
@@ -45,6 +47,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -56,5 +59,8 @@
     "prisma": "^5.17.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "ct3aMetadata": {
+    "initVersion": "7.36.2"
   }
 }

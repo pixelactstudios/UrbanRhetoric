@@ -739,11 +739,6 @@
   resolved "https://registry.yarnpkg.com/@trpc/client/-/client-11.0.0-rc.467.tgz#31aaaea76f0a750021894c958169c0f44e4b87d8"
   integrity sha512-ovZaGdAUl+EEmtJJc5uuo95B0gw8+q3jwNjUQQmmSMU5Isq4sYdjIWNkhbrFtR8CovllFyrRrjAgCWdaOTEY4g==
 
-"@trpc/next@^11.0.0-rc.467":
-  version "11.0.0-rc.467"
-  resolved "https://registry.yarnpkg.com/@trpc/next/-/next-11.0.0-rc.467.tgz#0b9bc1ccb4012db6a0cf544a7e82d7d5a4d464ce"
-  integrity sha512-AJUi5eATaJ7RAy9INkSUrF7n/0cJYP+2FNZtgJWxpm5t/WDmb3PxvxCy1qU1Sstc/zoDqaOZZ1y66xTnuCFDSA==
-
 "@trpc/react-query@^11.0.0-rc.467":
   version "11.0.0-rc.467"
   resolved "https://registry.yarnpkg.com/@trpc/react-query/-/react-query-11.0.0-rc.467.tgz#b72e86acd9f4888357129d6c35f17111d94cb4a6"
@@ -753,6 +748,11 @@
   version "11.0.0-rc.467"
   resolved "https://registry.yarnpkg.com/@trpc/server/-/server-11.0.0-rc.467.tgz#2593085b683554c1ceac70296bac296a3bf297c0"
   integrity sha512-94Gv26ALuBfxgFlSGV3x2uF2ixUEViuK0m3IPKOvCTMreisZkBqyTa3NkBcuPZW/AMUieM5P4Q2NrbHTIA0fKQ==
+
+"@types/bcryptjs@^2.4.6":
+  version "2.4.6"
+  resolved "https://registry.yarnpkg.com/@types/bcryptjs/-/bcryptjs-2.4.6.tgz#2b92e3c2121c66eba3901e64faf8bb922ec291fa"
+  integrity sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==
 
 "@types/conventional-commits-parser@^5.0.0":
   version "5.0.0"
@@ -1080,6 +1080,11 @@ balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+
+bcryptjs@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+  integrity sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==
 
 binary-extensions@^2.0.0:
   version "2.3.0"
@@ -2803,7 +2808,7 @@ next-themes@^0.3.0:
   resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.3.0.tgz#b4d2a866137a67d42564b07f3a3e720e2ff3871a"
   integrity sha512-/QHIrsYpd6Kfk7xakK4svpDI5mmXP0gfvCoJdGpZQ2TOrQZmsW0QxjaiLn8wbIKjtm4BTSqLoix4lxYYOnLJ/w==
 
-next@14.2.5:
+next@^14.2.5:
   version "14.2.5"
   resolved "https://registry.yarnpkg.com/next/-/next-14.2.5.tgz#afe4022bb0b752962e2205836587a289270efbea"
   integrity sha512-0f8aRfBVL+mpzfBjYfQuLWh2WyAwtJXCRfkPF4UJ5qd2YwrHczsrSzXU4tRMV0OAxR8ZJZWPFn6uhSC56UTsLA==
@@ -3364,6 +3369,11 @@ semver@^7.5.4, semver@^7.6.0:
   version "7.6.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
   integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
+
+server-only@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/server-only/-/server-only-0.0.1.tgz#0f366bb6afb618c37c9255a314535dc412cd1c9e"
+  integrity sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==
 
 set-function-length@^1.2.1:
   version "1.2.2"

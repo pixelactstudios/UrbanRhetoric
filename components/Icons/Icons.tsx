@@ -1,8 +1,6 @@
 import {
   ChevronLeft,
   Haze,
-  Key,
-  KeyIcon,
   KeyRoundIcon,
   Laptop,
   Loader2,
