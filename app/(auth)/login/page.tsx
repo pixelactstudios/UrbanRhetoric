@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import { Icons } from '@/components/Icons/Icons';
-import LoginForm from '@/components/LoginForm/LoginForm';
+import { Icons } from '@/components/icons/icons';
+import LoginForm from '@/components/login-form/login-form';
 import { HydrateClient } from '@/trpc/server';
 
 // Internal Imports

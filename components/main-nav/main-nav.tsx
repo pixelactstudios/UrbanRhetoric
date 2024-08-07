@@ -6,11 +6,11 @@ import { ReactNode, useState } from 'react';
 
 // Internal Imports
 import { MainNavItem } from '@/types';
-import { Icons } from '@/components/Icons/Icons';
+import { Icons } from '@/components/icons/icons';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import MobileNav from '@/components/MobileNav/MobileNav';
+import MobileNav from '@/components/mobile-nav/mobile-nav';
 
 // Types
 type NavbarLinksProps = {

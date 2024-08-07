@@ -4,8 +4,8 @@ import Link from 'next/link';
 // Internal Imports
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import { Icons } from '@/components/Icons/Icons';
-import RegisterForm from '@/components/RegisterForm/RegisterForm';
+import { Icons } from '@/components/icons/icons';
+import RegisterForm from '@/components/register-form/register-form';
 import Image from 'next/image';
 
 // Types
@@ -26,7 +26,7 @@ const SignUp = () => {
       </Link>
       <div className="hidden h-full bg-muted lg:block relative">
         <Image
-          src="/images/RegisterPageImage.webp"
+          src="/images/register-page-image.webp"
           alt="background cover images"
           fill
           className="object-cover"

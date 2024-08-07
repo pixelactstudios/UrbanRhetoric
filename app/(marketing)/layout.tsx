@@ -2,12 +2,12 @@
 import React from 'react';
 
 // Internal Imports
-import MainNav from '@/components/MainNav/MainNav';
+import MainNav from '@/components/main-nav/main-nav';
 import { marketingConfig } from '@/config/marketing';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import { SiteFooter } from '@/components/SiteFooter/SiteFooter';
+import { SiteFooter } from '@/components/site-footer/site-footer';
 
 // Types
 type MarketingLayoutProps = {

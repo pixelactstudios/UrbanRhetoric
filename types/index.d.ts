@@ -1,4 +1,4 @@
-import { Icons } from '@/components/Icons/Icons';
+import { Icons } from '@/components/icons/icons';
 
 export type SiteConfig = {
   name: string;

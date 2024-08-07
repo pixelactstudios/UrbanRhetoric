@@ -3,10 +3,10 @@ import { ReactNode } from 'react';
 
 // Internal Imports
 import { MainNavItem } from '@/types';
-import { useLockBody } from '@/hooks/useLockBody';
+import { useLockBody } from '@/hooks/use-lock-body';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { Icons } from '@/components/Icons/Icons';
+import { Icons } from '@/components/icons/icons';
 import { siteConfig } from '@/config/site';
 
 // Types

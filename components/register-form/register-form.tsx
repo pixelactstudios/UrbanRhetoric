@@ -13,7 +13,7 @@ import { Form } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { buttonVariants } from '@/components/ui/button';
-import { Icons } from '@/components/Icons/Icons';
+import { Icons } from '@/components/icons/icons';
 
 // Types
 type RegisterFormProps = HTMLAttributes<HTMLDivElement> & {};

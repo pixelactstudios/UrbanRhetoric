@@ -3,7 +3,7 @@ import { Inter as FontSans } from 'next/font/google';
 import '../styles/globals.css';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
-import { ThemeProvider } from '@/components/ThemeProvider/ThemeProvider';
+import { ThemeProvider } from '@/components/theme-provider/theme-provider';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
 import { TRPCReactProvider } from '@/trpc/react';
