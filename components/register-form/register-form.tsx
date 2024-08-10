@@ -1,19 +1,21 @@
 'use client';
 
 // Global Imports
-import { HTMLAttributes, useState } from 'react';
-import z from 'zod';
+import { type HTMLAttributes, useState } from 'react';
+import type z from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 // Internal Imports
 import { RegisterSchema } from '@/lib/validations/auth';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import { Form } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/icons/icons';
+import { api } from '@/trpc/react';
+import { toast } from 'sonner';
 
 // Types
 type RegisterFormProps = HTMLAttributes<HTMLDivElement> & {};
@@ -34,18 +36,36 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = form;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false);
+  const [mutataionSuccess, setMutationSuccess] = useState<string>('');
+  const [mutataionError, setMutationError] = useState<string>('');
   // const searchParams = useSearchParams();
 
-  async function onSubmit(data: FormData) {
+  const { mutate } = api.user.registerUser.useMutation({
+    onError: (error) => {
+      setIsLoading(false);
+      toast.error(error.message);
+
+      reset();
+    },
+    onSuccess: (data) => {
+      setIsLoading(false);
+      toast.success(data.success);
+    },
+  });
+
+  function onSubmit(data: FormData) {
+    setMutationSuccess('');
+    setMutationError('');
     setIsLoading(true);
 
-    //   TODO: Register Function
+    // Register Function
 
-    setIsLoading(false);
+    mutate(data);
   }
 
   return (
@@ -103,7 +123,11 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
                 />
               </div>
             </div>
-            <button className={buttonVariants()} disabled={isLoading}>
+            <button
+              className={buttonVariants()}
+              disabled={isLoading}
+              type="submit"
+            >
               {isLoading && (
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               )}{' '}

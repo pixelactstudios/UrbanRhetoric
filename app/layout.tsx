@@ -5,8 +5,9 @@ import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider/theme-provider';
 import localFont from 'next/font/local';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { TRPCReactProvider } from '@/trpc/react';
+import { Toaster } from '@/components/ui/sonner';
 
 const fontSans = FontSans({ subsets: ['latin'], variable: '--font-sans' });
 const roobertMono = localFont({
@@ -96,6 +97,7 @@ export default function RootLayout({
             <div className="relative flex flex-col min-h-screen">
               {children}
             </div>
+            <Toaster richColors />
           </ThemeProvider>
         </TRPCReactProvider>
       </body>

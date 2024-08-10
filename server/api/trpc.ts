@@ -10,8 +10,11 @@
 import { initTRPC, TRPCError } from '@trpc/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
-import { db } from '@/server/api/db';
+
 import { auth } from '@/server/auth';
+import { db } from '@/server/db';
+import { type Send } from 'lucide-react';
+import { type NextApiRequest, type NextApiResponse } from 'next';
 
 /**
  * 1. CONTEXT
@@ -25,7 +28,28 @@ import { auth } from '@/server/auth';
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: { headers: Headers }) => {
+export const createTRPCContext = async (opts: {
+  res: ServerResponse<IncomingMessage> & {
+    send: Send<any>;
+    json: Send<any>;
+    status: (statusCode: number) => NextApiResponse<any>;
+    redirect: {
+      (url: string): NextApiResponse<any>;
+      (status: number, url: string): NextApiResponse<any>;
+    };
+    setDraftMode: (options: { enable: boolean }) => NextApiResponse<any>;
+    setPreviewData: (
+      data: object | string,
+      options?: { maxAge?: number; path?: string }
+    ) => NextApiResponse<any>;
+    clearPreviewData: (options?: { path?: string }) => NextApiResponse<any>;
+    revalidate: (
+      urlPath: string,
+      opts?: { unstable_onlyGenerated?: boolean }
+    ) => Promise<void>;
+  };
+  req: NextApiRequest;
+}) => {
   const session = await auth();
 
   return {

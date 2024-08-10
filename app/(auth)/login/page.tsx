@@ -1,5 +1,5 @@
 // Global Imports
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
@@ -14,9 +14,7 @@ export const metadata: Metadata = {
   description: 'Login to your account',
 };
 
-0;
 // Component
-
 const LoginPage = async () => {
   return (
     <HydrateClient>
