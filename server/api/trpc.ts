@@ -28,28 +28,7 @@ import { type NextApiRequest, type NextApiResponse } from 'next';
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: {
-  res: ServerResponse<IncomingMessage> & {
-    send: Send<any>;
-    json: Send<any>;
-    status: (statusCode: number) => NextApiResponse<any>;
-    redirect: {
-      (url: string): NextApiResponse<any>;
-      (status: number, url: string): NextApiResponse<any>;
-    };
-    setDraftMode: (options: { enable: boolean }) => NextApiResponse<any>;
-    setPreviewData: (
-      data: object | string,
-      options?: { maxAge?: number; path?: string }
-    ) => NextApiResponse<any>;
-    clearPreviewData: (options?: { path?: string }) => NextApiResponse<any>;
-    revalidate: (
-      urlPath: string,
-      opts?: { unstable_onlyGenerated?: boolean }
-    ) => Promise<void>;
-  };
-  req: NextApiRequest;
-}) => {
+export const createTRPCContext = async (opts: { headers: Headers }) => {
   const session = await auth();
 
   return {
