@@ -89,7 +89,7 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
                       autoComplete="name"
                       autoCorrect="off"
                       placeholder="Your Name"
-                      disabled={isLoading}
+                      disabled={isLoading || isGithubLoading}
                       {...field} />
                   </FormControl>
                     <FormMessage />
@@ -109,7 +109,7 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
                         autoComplete="email"
                         autoCorrect="off"
                         placeholder="Your Name"
-                        disabled={isLoading}
+                        disabled={isLoading || isGithubLoading}
                         {...field} />
                     </FormControl>
                     <FormMessage />
@@ -129,7 +129,7 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
                         autoComplete="password"
                         autoCorrect="off"
                         placeholder="********"
-                        disabled={isLoading}
+                        disabled={isLoading || isGithubLoading}
                         {...field} />
                     </FormControl>
                     <FormMessage />
@@ -140,7 +140,7 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
             </div>
             <button
               className={buttonVariants()}
-              disabled={isLoading}
+              disabled={isLoading || isGithubLoading}
               type="submit"
             >
               {isLoading && (
