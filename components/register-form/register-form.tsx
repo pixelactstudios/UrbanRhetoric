@@ -5,17 +5,16 @@ import { type HTMLAttributes, useState } from 'react';
 import type z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 
 // Internal Imports
 import { RegisterSchema } from '@/lib/validations/auth';
 import { cn } from '@/lib/utils';
-import { Form } from '@/components/ui/form';
-import { Label } from '@/components/ui/label';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/icons/icons';
 import { api } from '@/trpc/react';
-import { toast } from 'sonner';
 
 // Types
 type RegisterFormProps = HTMLAttributes<HTMLDivElement> & {};
@@ -32,40 +31,43 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
     },
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = form;
+  //  Form destructure
+  const { handleSubmit, reset} = form;
 
+  // States for managing loading states of signup page
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false);
-  const [mutataionSuccess, setMutationSuccess] = useState<string>('');
-  const [mutataionError, setMutationError] = useState<string>('');
-  // const searchParams = useSearchParams();
 
+  // Calling TRPC mutation function
   const { mutate } = api.user.registerUser.useMutation({
+    // Error handling of TRPC Function
     onError: (error) => {
       setIsLoading(false);
       toast.error(error.message);
-
-      reset();
     },
+    // Success handling of TRPC Function
     onSuccess: (data) => {
       setIsLoading(false);
       toast.success(data.success);
     },
   });
 
+  //  GitHub OAuth signin function
+  function githubSignin() {
+    setIsGithubLoading(true);
+
+  // TODO: Github signin
+  }
+
+  // Form submit function
   function onSubmit(data: FormData) {
-    setMutationSuccess('');
-    setMutationError('');
     setIsLoading(true);
 
     // Register Function
-
     mutate(data);
+
+      // Resets the form after calling Register function
+      reset();
   }
 
   return (
@@ -76,51 +78,64 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
             <div className="grid gap-1">
               <div className="mb-4 flex flex-col gap-2">
                 {/* Username */}
-                <Label className="" htmlFor="name">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  type="text"
-                  autoCapitalize="none"
-                  autoComplete="name"
-                  autoCorrect="off"
-                  placeholder="your name"
-                  disabled={isLoading || isGithubLoading}
-                  {...register('name')}
-                />
+                <FormField control={form.control} name="name" render={({field})=>(
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="name"
+                      type="text"
+                      autoCapitalize="none"
+                      autoComplete="name"
+                      autoCorrect="off"
+                      placeholder="Your Name"
+                      disabled={isLoading}
+                      {...field} />
+                  </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
               </div>
               <div className="mb-4 flex flex-col gap-2">
                 {/* Email */}
-                <Label className="" htmlFor="email">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  autoCapitalize="none"
-                  autoComplete="email"
-                  autoCorrect="off"
-                  placeholder="name@example.com"
-                  disabled={isLoading || isGithubLoading}
-                  {...register('email')}
-                />
+                <FormField control={form.control} name="email" render={({field})=>(
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        type="email"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        placeholder="Your Name"
+                        disabled={isLoading}
+                        {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
               </div>
               <div className="mb-4 flex flex-col gap-2">
                 {/* Password */}
-                <Label className="mb-2" htmlFor="password">
-                  Password
-                </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  autoCapitalize="none"
-                  autoComplete="password"
-                  autoCorrect="off"
-                  placeholder="**********"
-                  disabled={isLoading || isGithubLoading}
-                  {...register('password')}
-                />
+                <FormField control={form.control} name="password" render={({field})=>(
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="password"
+                        type="password"
+                        autoCapitalize="none"
+                        autoComplete="password"
+                        autoCorrect="off"
+                        placeholder="********"
+                        disabled={isLoading}
+                        {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+
               </div>
             </div>
             <button
@@ -150,10 +165,7 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
         <button
           type="button"
           className={cn(buttonVariants({ variant: 'outline' }))}
-          onClick={() => {
-            setIsGithubLoading(true);
-            //   TODO: Github login
-          }}
+          onClick={githubSignin}
           disabled={isLoading || isGithubLoading}
         >
           {isGithubLoading ? (
