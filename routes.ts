@@ -10,7 +10,7 @@ export const publicRoutes = ['/', 'auth'];
  * These routes will redirect login users to settings.
  * @type {string[]}
  */
-export const authRoutes = [
+export const authRoutes: string[] = [
   '/login',
   '/signup',
   '/auth/error',
@@ -27,7 +27,7 @@ export const apiAuthPrefix = '/api/auth';
 
 /**
  * The prefix for API TRPC routes.
- * Routes that start with this prefix are used for TRPC API.
+ * Routes that start with this prefix are used for API TRPC purposes.
  * @type {string}
  */
 export const apiTRPCPrefix = '/api/trpc';

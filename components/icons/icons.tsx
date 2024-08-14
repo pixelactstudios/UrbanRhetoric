@@ -1,27 +1,58 @@
 import {
+  AlertTriangle,
+  ArrowRight,
+  Check,
   ChevronLeft,
-  Haze,
-  KeyRoundIcon,
+  ChevronRight,
+  Command,
+  CreditCard,
+  File,
+  FileText,
+  HelpCircle,
+  Image,
   Laptop,
   Loader2,
-  LucideIcon,
-  LucideProps,
+  type LucideProps,
   Moon,
+  MoreVertical,
+  Pizza,
+  Plus,
+  Settings,
   SunMedium,
+  Trash,
+  User,
   X,
+  type Icon as LucideIcon,
+  KeyRoundIcon, // Import the type if available
 } from 'lucide-react';
+import React from 'react';
 
-export type Icon = LucideIcon;
+// If LucideIcon is not a type and is actually a component, you might need to define it as a type manually:
+export type Icon = React.ComponentType<LucideProps>; // Assuming icons are React components with LucideProps
 
 export const Icons = {
-  chevronLeft: ChevronLeft,
+  logo: Command,
+  passkey: KeyRoundIcon,
   close: X,
+  spinner: Loader2,
+  chevronLeft: ChevronLeft,
+  chevronRight: ChevronRight,
+  trash: Trash,
+  post: FileText,
+  page: File,
+  media: Image,
+  settings: Settings,
+  billing: CreditCard,
+  ellipsis: MoreVertical,
+  add: Plus,
+  warning: AlertTriangle,
+  user: User,
+  arrowRight: ArrowRight,
+  help: HelpCircle,
+  pizza: Pizza,
   sun: SunMedium,
   moon: Moon,
   laptop: Laptop,
-  logo: Haze,
-  passkey: KeyRoundIcon,
-  spinner: Loader2,
   gitHub: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"
@@ -39,4 +70,5 @@ export const Icons = {
       ></path>
     </svg>
   ),
+  check: Check,
 };

@@ -10,7 +10,14 @@ import { toast } from 'sonner';
 // Internal Imports
 import { RegisterSchema } from '@/lib/validations/auth';
 import { cn } from '@/lib/utils';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/icons/icons';
@@ -32,14 +39,14 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
   });
 
   //  Form destructure
-  const { handleSubmit, reset} = form;
+  const { handleSubmit, reset } = form;
 
   // States for managing loading states of signup page
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false);
 
   // Calling TRPC mutation function
-  const { mutate } = api.user.registerUser.useMutation({
+  const { mutate } = api.user.register.useMutation({
     // Error handling of TRPC Function
     onError: (error) => {
       setIsLoading(false);
@@ -56,7 +63,7 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
   function githubSignin() {
     setIsGithubLoading(true);
 
-  // TODO: Github signin
+    // TODO: Github signin
   }
 
   // Form submit function
@@ -66,8 +73,8 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
     // Register Function
     mutate(data);
 
-      // Resets the form after calling Register function
-      reset();
+    // Resets the form after calling Register function
+    reset();
   }
 
   return (
@@ -78,64 +85,78 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
             <div className="grid gap-1">
               <div className="mb-4 flex flex-col gap-2">
                 {/* Username */}
-                <FormField control={form.control} name="name" render={({field})=>(
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      id="name"
-                      type="text"
-                      autoCapitalize="none"
-                      autoComplete="name"
-                      autoCorrect="off"
-                      placeholder="Your Name"
-                      disabled={isLoading || isGithubLoading}
-                      {...field} />
-                  </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="name"
+                          type="text"
+                          autoCapitalize="none"
+                          autoComplete="name"
+                          autoCorrect="off"
+                          placeholder="Your Name"
+                          disabled={isLoading || isGithubLoading}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
               <div className="mb-4 flex flex-col gap-2">
                 {/* Email */}
-                <FormField control={form.control} name="email" render={({field})=>(
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="email"
-                        type="email"
-                        autoCapitalize="none"
-                        autoComplete="email"
-                        autoCorrect="off"
-                        placeholder="Your Name"
-                        disabled={isLoading || isGithubLoading}
-                        {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="email"
+                          type="email"
+                          autoCapitalize="none"
+                          autoComplete="email"
+                          autoCorrect="off"
+                          placeholder="Your Name"
+                          disabled={isLoading || isGithubLoading}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
               <div className="mb-4 flex flex-col gap-2">
                 {/* Password */}
-                <FormField control={form.control} name="password" render={({field})=>(
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="password"
-                        type="password"
-                        autoCapitalize="none"
-                        autoComplete="password"
-                        autoCorrect="off"
-                        placeholder="********"
-                        disabled={isLoading || isGithubLoading}
-                        {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="password"
+                          type="password"
+                          autoCapitalize="none"
+                          autoComplete="password"
+                          autoCorrect="off"
+                          placeholder="********"
+                          disabled={isLoading || isGithubLoading}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             </div>
             <button

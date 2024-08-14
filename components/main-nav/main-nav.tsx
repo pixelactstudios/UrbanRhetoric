@@ -28,7 +28,7 @@ const MainNav = ({ children, items }: NavbarLinksProps) => {
       <Link
         rel="stylesheet"
         href="/"
-        className="hidden items-center justify-center md:flex space-x-2 p-2 rounded-md hover:backdrop-filter hover:backdrop-blur-3xl hover:bg-opacity-50  hover:bg-gray-200 transition-all"
+        className="hidden items-center justify-center md:flex space-x-2 p-2 rounded-md "
       >
         <Icons.logo className="w-10 h-10" />
         <span className="hidden font-bold sm:inline-block">

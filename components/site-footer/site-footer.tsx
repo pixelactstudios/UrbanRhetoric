@@ -23,21 +23,12 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             </a>
             . Hosted on{' '}
             <a
-              href="https://vercel.com"
+              href="https://aws.amazon.com/pm/ec2/"
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
               EC2
-            </a>
-            . Illustrations by{' '}
-            <a
-              href="https://popsy.co"
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium underline underline-offset-4"
-            >
-              Popsy
             </a>
             . The source code is available on{' '}
             <a

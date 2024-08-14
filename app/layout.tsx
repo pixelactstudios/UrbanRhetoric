@@ -8,6 +8,8 @@ import localFont from 'next/font/local';
 import { type ReactNode } from 'react';
 import { TRPCReactProvider } from '@/trpc/react';
 import { Toaster } from '@/components/ui/sonner';
+import { SessionProvider } from 'next-auth/react';
+import { auth } from '@/server/auth';
 
 const fontSans = FontSans({ subsets: ['latin'], variable: '--font-sans' });
 const roobertMono = localFont({
@@ -78,11 +80,13 @@ export const metadata: Metadata = {
   manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body
@@ -93,12 +97,14 @@ export default function RootLayout({
         )}
       >
         <TRPCReactProvider>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-            <div className="relative flex flex-col min-h-screen">
-              {children}
-            </div>
-            <Toaster richColors />
-          </ThemeProvider>
+          <SessionProvider session={session}>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+              <div className="relative flex flex-col min-h-screen">
+                {children}
+              </div>
+              <Toaster richColors />
+            </ThemeProvider>
+          </SessionProvider>
         </TRPCReactProvider>
       </body>
     </html>

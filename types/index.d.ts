@@ -1,4 +1,4 @@
-import { Icons } from '@/components/icons/icons';
+import { type Icons } from '@/components/icons/icons';
 
 export type SiteConfig = {
   name: string;
@@ -36,4 +36,9 @@ export type SidebarNavItem = {
 );
 export type MarketingConfig = {
   mainNav: MainNavItem[];
+};
+
+export type DashboardConfig = {
+  mainNav: MainNavItem[];
+  sidebarNav: SidebarNavItem[];
 };

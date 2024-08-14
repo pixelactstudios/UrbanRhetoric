@@ -8,7 +8,7 @@ export const siteConfig: SiteConfig = {
   url: env.NEXT_PUBLIC_APP_URL,
   ogImage: `${env.NEXT_PUBLIC_APP_URL}/og.jpg`,
   links: {
-    github: 'https://github.com/devchaudhary24k/UrbanRhetoric',
-    twitter: 'https://twitter.com/dev_talan',
+    github: 'https://github.com/pixelactstudios/UrbanRhetoric',
+    twitter: 'https://twitter.com/pixelactstudios',
   },
 };
