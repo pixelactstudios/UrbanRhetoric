@@ -1,8 +1,14 @@
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
-import { RegisterSchema, VerifyUser } from '@/lib/validations/auth';
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from '@/server/api/trpc';
+import { RegisterSchema } from '@/lib/validations/auth';
 import bcrypt from 'bcryptjs';
 import { getUserByEmail } from '@/data/user';
 import { TRPCError } from '@trpc/server';
+import { ChangeNameSchema, VerifyUser } from '@/lib/validations/user';
+import { ChangePasswordSchema } from '@/lib/validations/password';
 
 export const userRouter = createTRPCRouter({
   // Register user API
@@ -60,5 +66,66 @@ export const userRouter = createTRPCRouter({
 
     // TODO: Check if user account is verified or not.
     return { email };
+  }),
+
+  changeName: protectedProcedure
+    .input(ChangeNameSchema)
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.user.update({
+        where: {
+          email: ctx.session.user.email!,
+        },
+        data: {
+          name: input.name,
+        },
+      });
+    }),
+
+  changePassword: protectedProcedure
+    .input(ChangePasswordSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { password, newPassword } = input;
+
+      const user = await getUserByEmail(ctx.session.user.email!);
+      if (!user) return null;
+      if (!user.password) return null;
+
+      //   Check current password
+      const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if (!passwordMatch) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'Please check your password and try again',
+        });
+      }
+
+      //   Hash new Password
+      const newHashedPassword = await bcrypt.hash(newPassword, 10);
+
+      //   Update new Hashed Password
+      await ctx.db.user.update({
+        where: {
+          email: ctx.session.user.email!,
+        },
+        data: {
+          password: newHashedPassword,
+        },
+      });
+      return { success: 'Password updated successfully' };
+    }),
+
+  deletePasskey: protectedProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.authenticator.deleteMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+    });
+    await ctx.db.account.deleteMany({
+      where: {
+        userId: ctx.session.user.id,
+        provider: 'passkey',
+      },
+    });
   }),
 });

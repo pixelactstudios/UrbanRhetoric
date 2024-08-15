@@ -13,9 +13,13 @@ import { getUserByEmail } from '@/data/user';
 import bcrypt from 'bcryptjs';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { db } from '@/server/db';
+import Passkey from '@auth/core/providers/passkey';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: PrismaAdapter(db),
+  experimental: { enableWebAuthn: true },
   providers: [
+    Passkey,
     GitHub({
       allowDangerousEmailAccountLinking: true,
     }),
@@ -39,7 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  adapter: PrismaAdapter(db),
+
   session: {
     strategy: 'jwt',
   },
@@ -102,32 +106,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
 
-    async session({ session, token }) {
-      if (session) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email!;
-        session.user.image = token.picture;
-      }
-
-      return session;
-    },
-
-    async jwt({ token, user }) {
-      const dbUser = await getUserByEmail(token.email!);
-
-      if (!dbUser) {
-        if (user) {
-          token.id = user.id!;
-        }
-        return token;
-      }
-      return {
-        id: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        picture: dbUser.image,
-      };
-    },
+    // async session({ session, token }) {
+    //   if (session) {
+    //     session.user.id = token.id;
+    //     session.user.name = token.name;
+    //     session.user.email = token.email!;
+    //     session.user.image = token.picture;
+    //   }
+    //
+    //   return session;
+    // },
+    //
+    // async jwt({ token, user }) {
+    //   const dbUser = await getUserByEmail(token.email!);
+    //
+    //   if (!dbUser) {
+    //     if (user) {
+    //       token.id = user.id!;
+    //     }
+    //     return token;
+    //   }
+    //   return {
+    //     id: dbUser.id,
+    //     name: dbUser.name,
+    //     email: dbUser.email,
+    //     picture: dbUser.image,
+    //   };
+    // },
   },
 });

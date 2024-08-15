@@ -6,6 +6,7 @@ import type z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
+import { signIn as passkeySignIn } from 'next-auth/webauthn';
 import { useRouter } from 'next/navigation';
 import { TRPCClientError } from '@trpc/client';
 import { toast } from 'sonner';
@@ -26,6 +27,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/icons/icons';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { api } from '@/trpc/react';
+import bcrypt from 'bcryptjs';
 
 // Types
 type LoginFormProps = HTMLAttributes<HTMLDivElement> & {};
@@ -67,7 +69,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
   const { mutateAsync: verifyUser } = api.user.verifyUser.useMutation();
 
   async function onSubmit(data: FormData) {
-    setIsLoading(true);
+    // setIsLoading(true);
     const { email, password } = data;
 
     try {
@@ -83,8 +85,6 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
           password,
           redirect: false,
         });
-
-        console.log(signInResult);
 
         if (signInResult?.error) {
           // Handle authentication errors
@@ -133,6 +133,12 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
       router.push(DEFAULT_LOGIN_REDIRECT);
     }
     setIsGithubLoading(false);
+  }
+
+  async function passkeySignInFunction() {
+    setIsPasskeyLoading(true);
+    await passkeySignIn('passkey');
+    setIsPasskeyLoading(false);
   }
 
   return (
@@ -235,7 +241,7 @@ const LoginForm = ({ className, ...props }: LoginFormProps) => {
         <button
           type="button"
           className={cn(buttonVariants({ variant: 'outline' }))}
-          onClick={githubSignin}
+          onClick={passkeySignInFunction}
           disabled={isLoading || isGithubLoading || isPasskeyLoading}
         >
           {isPasskeyLoading ? (

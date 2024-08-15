@@ -22,6 +22,9 @@ import { Input } from '@/components/ui/input';
 import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/icons/icons';
 import { api } from '@/trpc/react';
+import { signIn } from 'next-auth/react';
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
+import { useRouter } from 'next/navigation';
 
 // Types
 type RegisterFormProps = HTMLAttributes<HTMLDivElement> & {};
@@ -29,6 +32,7 @@ type FormData = z.infer<typeof RegisterSchema>;
 
 // Component
 const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
+  const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -60,10 +64,27 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
   });
 
   //  GitHub OAuth signin function
-  function githubSignin() {
+  async function githubSignin() {
     setIsGithubLoading(true);
+    const signInResult = await signIn('github', {
+      redirect: false,
+    });
 
-    // TODO: Github signin
+    console.log(signInResult);
+
+    if (signInResult?.error) {
+      // Handle authentication errors
+      if (signInResult.error) {
+        toast.error(signInResult.error);
+      } else {
+        toast.error('Something went wrong');
+      }
+    } else if (signInResult?.ok) {
+      // Handle successful authentication
+      toast.success('Successfully authenticated');
+      router.push(DEFAULT_LOGIN_REDIRECT);
+    }
+    setIsGithubLoading(false);
   }
 
   // Form submit function
@@ -123,7 +144,7 @@ const RegisterForm = ({ className, ...props }: RegisterFormProps) => {
                           autoCapitalize="none"
                           autoComplete="email"
                           autoCorrect="off"
-                          placeholder="Your Name"
+                          placeholder="name@example.com"
                           disabled={isLoading || isGithubLoading}
                           {...field}
                         />

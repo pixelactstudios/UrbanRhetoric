@@ -1,5 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from '@/server/api/trpc';
-import { PostDeleteSchema } from '@/lib/validations/auth';
+import { PostDeleteSchema } from '@/lib/validations/post';
 
 export const postRouter = createTRPCRouter({
   getAllPosts: protectedProcedure.query(async ({ ctx }) => {

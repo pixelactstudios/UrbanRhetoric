@@ -10,11 +10,3 @@ export const RegisterSchema = z.object({
   name: z.string().min(2),
   password: z.string().min(6),
 });
-
-export const VerifyUser = z.object({
-  email: z.string().email(),
-});
-
-export const PostDeleteSchema = z.object({
-  postId: z.string().min(1),
-});
